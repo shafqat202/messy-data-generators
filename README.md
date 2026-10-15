@@ -46,12 +46,16 @@ I didn't want `messiness = 1.0` to delete 100% of the data, because then there w
 
 ## Methodology & References
 
-To make sure the error types and percentages are realistic rather than completely random, I designed the error rules around standard data quality frameworks:
+To make sure the error types and percentages feel realistic rather than completely arbitrary, the error rules are **inspired by** standard data quality frameworks and database cleaning literature:
 
-* **Error Categories:** Based on the 5 core dimensions from **DAMA-DMBOK2** and **ISO/IEC 25012** (*Completeness, Consistency, Validity, Accuracy, and Uniqueness*).
-* **Error Rates (5% to 35% ceiling):** Follows the benchmark noise injection ranges used in database cleaning research papers, specifically **BART** (*Arocena et al., PVLDB 2015*) and **Raha** (*Mahdavi et al., PVLDB 2019*).
-* **Missing Data Logic:** Modelled as Missing Completely at Random (**MCAR**) following *Little & Rubin (2019), Statistical Analysis with Missing Data*.
+- **Error Categories:** Modelled around the 5 core data quality dimensions from **DAMA-DMBOK2** and **ISO/IEC 25012** (*Completeness, Consistency, Validity, Accuracy, and Uniqueness*).
+- **Error Generation & Rate Ceiling (5% to 35%):** The parameterized error-injection approach is inspired by synthetic data-corruption benchmarks such as **BART** (*Arocena et al., PVLDB 2015*), while the error types reflect real-world dirty dataset benchmarks evaluated in error-detection systems like **Raha** (*Mahdavi et al., SIGMOD 2019*). The upper ceiling is capped at ~30%–35% as a practical design choice so that even at `messiness = 1.0`, enough clean signal remains for students to practice pattern detection and imputation.
+- **Missing Data Mechanism:** Missingness is generated independently of cell values—Missing Completely at Random (**MCAR**)—following the taxonomy in *Little & Rubin (2019)*.
 
+### Verified References
+1. **Arocena, P. C., Glavic, B., Mecca, G., Miller, R. J., Papotti, P., & Santoro, D. (2015).** *Messing Up with BART: Error Generation for Evaluating Data-Cleaning Algorithms.* Proceedings of the VLDB Endowment (PVLDB), 9(2), 36–47.
+2. **Mahdavi, M., Abedjan, Z., Castro Fernandez, R., Madden, S., Ouzzani, M., Stonebraker, M., & Tang, N. (2019).** *Raha: A Configuration-Free Error Detection System.* In Proceedings of the 2019 International Conference on Management of Data (SIGMOD '19), 865–882.
+3. **Little, R. J. A., & Rubin, D. B. (2019).** *Statistical Analysis with Missing Data* (3rd ed.). John Wiley & Sons.
 ---
 
 ## How to Run the Scripts
